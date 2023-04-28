@@ -34,8 +34,8 @@ pnpm run build
 ```
 
 ## 参考资料
-1. [Vite](https://cn.vitejs.dev/)
-2. [axios](https://www.axios-http.cn/)
-3. [vue](https://cn.vuejs.org/)
-4. [vue-router](https://router.vuejs.org/zh/)
-5. [element-plus](https://element-plus.gitee.io/zh-CN/)
+- [Vite](https://cn.vitejs.dev/)
+- [axios](https://www.axios-http.cn/)
+- [vue](https://cn.vuejs.org/)
+- [vue-router](https://router.vuejs.org/zh/)
+- [element-plus](https://element-plus.gitee.io/zh-CN/)
