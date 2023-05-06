@@ -13,9 +13,10 @@
             <br />
             <div>
                 <el-input
-                    v-model="searchVisitorData.id"
-                    placeholder="请输入需要查找的车主ID"
+                    v-model="searchVisitorData.visName"
+                    placeholder="请输入需要查找的车主姓名"
                     style="width: 200px"
+                    autocomplete="off"
                 />
                 <el-button type="primary" text @click="searchVisitor"
                     >查询</el-button
@@ -29,6 +30,7 @@
         <div class="table_area">
             <el-table :data="visitorInfoData" stripe style="width: 100%">
                 <el-table-column prop="id" label="车主ID" width="160" />
+                <el-table-column prop="visName" label="车主姓名" width="160" />
                 <el-table-column prop="carNo" label="车牌号" width="200" />
                 <el-table-column prop="visPhone" label="车主电话" width="200" />
                 <el-table-column label="操作" width="240">
@@ -60,6 +62,12 @@
                     disabled
                 />
             </el-form-item>
+            <el-form-item label="车主姓名" :label-width="120">
+                <el-input
+                    v-model="editVisitorInfoFrom.visName"
+                    autocomplete="off"
+                />
+            </el-form-item>
             <el-form-item label="车牌号码" :label-width="120">
                 <el-input
                     v-model="editVisitorInfoFrom.carNo"
@@ -84,6 +92,12 @@
 
     <el-dialog v-model="createVisitorInfoVisible" title="添加车主信息">
         <el-form :model="createVisitorInfoFrom">
+            <el-form-item label="车主姓名" :label-width="120">
+                <el-input
+                    v-model="createVisitorInfoFrom.visName"
+                    autocomplete="off"
+                />
+            </el-form-item>
             <el-form-item label="车牌号码" :label-width="120">
                 <el-input
                     v-model="createVisitorInfoFrom.carNo"
@@ -132,15 +146,18 @@ const editVisitorInfoFrom = reactive<UpdateVisitorInfo>({
     id: 0,
     carNo: "",
     visPhone: "",
+    visName: "",
 });
 const createVisitorInfoFrom = reactive<CreateVisitorInfo>({
     carNo: "",
     visPhone: "",
+    visName: "",
 });
 const searchVisitorData = ref<VisitorInfoData>({
     id: null,
     carNo: "",
     visPhone: "",
+    visName: "",
 });
 
 // 重置查询信息
@@ -149,6 +166,7 @@ const resetSearch = () => {
         id: null,
         carNo: "",
         visPhone: "",
+        visName: "",
     };
     getVisitorInfo();
 };
@@ -156,9 +174,9 @@ const resetSearch = () => {
 // 查找车主信息
 const searchVisitor = () => {
     const params = {
-        id: searchVisitorData.value.id,
+        visName: searchVisitorData.value.visName,
     };
-    http.get(`/visitorInfo/${params.id}`)
+    http.get(`/visitorInfo/${params.visName}`)
         .then((res: any) => {
             if (res.statusCode === GET_ERR) {
                 ElMessage.error("未查询到相关车主信息");
@@ -180,6 +198,7 @@ const showEditVisitorInfoModel = (visitorInfo: UpdateVisitorInfo) => {
     editVisitorInfoFrom.id = visitorInfo.id;
     editVisitorInfoFrom.carNo = visitorInfo.carNo;
     editVisitorInfoFrom.visPhone = visitorInfo.visPhone;
+    editVisitorInfoFrom.visName = visitorInfo.visName;
 
     editVisitorInfoVisible.value = true;
 };
@@ -262,6 +281,7 @@ const deleteVisitorInfo = (id: number) => {
 const getVisitorInfo = () => {
     http.get<VisitorRequest>("/visitorInfo")
         .then((res: VisitorRequest) => {
+            console.log(res);
             if (res.statusCode === LOGIN_ERR) {
                 router.push("/login");
             } else if (res.statusCode === GET_ERR) {

@@ -43,7 +43,6 @@ const loginForm = reactive({
 const login = () => {
     http.get("/login", loginForm)
         .then((res: any) => {
-            console.log(res)
             if (res.statusCode === LOGIN_ERR) {
                 ElMessage.error(res.msg);
             } else {
