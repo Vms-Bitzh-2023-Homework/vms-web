@@ -62,6 +62,7 @@ router.beforeEach((to, from, next) => {
             router.replace("/login");
         }
     }
+    document.title = to.meta.title as string;
     next();
 });
 
