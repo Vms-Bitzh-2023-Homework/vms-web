@@ -1,4 +1,5 @@
 <template>
+    <h1>在停车辆信息</h1>
     <div style="margin: 0 30px 0 30px">
         <div>
             <div>
