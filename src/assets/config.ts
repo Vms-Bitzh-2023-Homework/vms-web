@@ -1,0 +1,1 @@
+export const API_BASEURL:string = "http://localhost:2468"
