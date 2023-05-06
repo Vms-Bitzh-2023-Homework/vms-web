@@ -1,7 +1,7 @@
 <template>
     <div class="pages">
         <div>
-            <el-card class="box-card">
+            <el-card class="box_ard">
                 <template #header>
                     <div class="card_header">
                         <span>停车场管理系统·登录</span>
@@ -70,5 +70,16 @@ const login = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.box_ard{
+    width: 450px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 24px;
+    font-size: x-large;
 }
 </style>
