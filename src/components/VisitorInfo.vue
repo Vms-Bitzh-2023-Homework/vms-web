@@ -281,7 +281,6 @@ const deleteVisitorInfo = (id: number) => {
 const getVisitorInfo = () => {
     http.get<VisitorRequest>("/visitorInfo")
         .then((res: VisitorRequest) => {
-            console.log(res);
             if (res.statusCode === LOGIN_ERR) {
                 router.push("/login");
             } else if (res.statusCode === GET_ERR) {
