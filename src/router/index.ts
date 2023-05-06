@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/login",
         name: "login",
         component: () => LoginPageVue,
-        meta: { title: "", icon: "" },
+        meta: { title: "登录" },
     },
     {
         path: "/layout",
@@ -29,16 +29,21 @@ const routes: Array<RouteRecordRaw> = [
                 path: "/home",
                 name: "home",
                 component: HomeVue,
+                meta: {
+                    title: "主页",
+                },
             },
             {
                 path: "/parkingCar",
                 name: "parkingCar",
                 component: ParkingCarVue,
+                meta: { title: "在停车辆信息" },
             },
             {
                 path: "/visitorInfo",
                 name: "visitorInfo",
                 component: VisitorInfoVue,
+                meta: { title: "车主信息" },
             },
         ],
     },
