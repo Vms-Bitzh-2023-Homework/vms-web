@@ -183,10 +183,7 @@ const searchVisitor = () => {
             } else if (res.statusCode === LOGIN_ERR) {
                 router.push("/login");
             } else {
-                const data: VisitorInfoData = res.data;
-                const searchResult: Array<VisitorInfoData> = [];
-                searchResult.push(data);
-                visitorInfoData.value = searchResult;
+                visitorInfoData.value = res.data;
             }
         })
         .catch(() => {
