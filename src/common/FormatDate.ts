@@ -1,4 +1,4 @@
-interface DateInfo {
+export interface DateInfo {
     year: number;
     month: number;
     date: number;
@@ -6,8 +6,9 @@ interface DateInfo {
     minute: number;
     seconds: number;
     miniSecond: number;
+    weak: number;
 }
-interface FormatDateInfo {
+export interface FormatDateInfo {
     yyyy: string;
     MM: string;
     dd: string;
@@ -15,6 +16,7 @@ interface FormatDateInfo {
     mm: string;
     ss: string;
     ms: string;
+    w: string;
 }
 
 const _formatNormalize = (formatter: any) => {
@@ -65,6 +67,7 @@ const FormatDate = (date: Date, formatter: any, isPad: boolean = false) => {
         minute: date.getMinutes(),
         seconds: date.getSeconds(),
         miniSecond: date.getMilliseconds(),
+        weak: date.getDay()
     };
     const formatDateInfo: FormatDateInfo = {
         yyyy: dateInfo.year.toString(),
@@ -74,6 +77,7 @@ const FormatDate = (date: Date, formatter: any, isPad: boolean = false) => {
         mm: dateInfo.minute.toString(),
         ss: dateInfo.seconds.toString(),
         ms: dateInfo.miniSecond.toString(),
+        w: dateInfo.weak.toString()
     };
 
     const _pad = (prop: keyof FormatDateInfo, len: number) => {
