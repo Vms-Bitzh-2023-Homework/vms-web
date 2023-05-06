@@ -52,10 +52,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.path != "/login") {
-        ElMessage.error("尚未登录，请登录后再试")
-        router.replace("/login");
+        if (!localStorage.getItem("token")) {
+            ElMessage.error("尚未登录，请登录后再试");
+            router.replace("/login");
+        }
     }
-    next()
+    next();
 });
 
 export default router;
