@@ -43,9 +43,11 @@ const loginForm = reactive({
 const login = () => {
     http.get("/login", loginForm)
         .then((res: any) => {
+            console.log(res)
             if (res.statusCode === LOGIN_ERR) {
-                ElMessage.error(res.data.msg);
+                ElMessage.error(res.msg);
             } else {
+                localStorage.setItem("token", res.token)
                 ElMessage.success("登录成功");
                 router.push("/home")
             }
