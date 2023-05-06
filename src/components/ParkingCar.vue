@@ -148,7 +148,7 @@ const editParkingCarFrom = reactive<UpdateParkingCar>({
 const createParkingCarFrom = reactive<CreateParkingCar>({
     carNo: "",
     in_time: "",
-    out_time: "",
+    out_time: null,
 });
 const searchParkingCarData = ref<ParkingCarData>({
     id: 0,
@@ -181,10 +181,7 @@ const searchParkingCar = () => {
                 ElMessage.warning("授权信息过期，请重新登录");
                 router.push("/login");
             } else {
-                const data: ParkingCarData = res.data;
-                const searchResult: Array<ParkingCarData> = [];
-                searchResult.push(data);
-                parkingCarData.value = searchResult;
+                parkingCarData.value = res.data;
             }
         })
         .catch(() => {
