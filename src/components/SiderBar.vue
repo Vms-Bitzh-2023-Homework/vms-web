@@ -5,7 +5,7 @@
         router
         :style="{ height: 'calc(100vh - 120px)' }"
     >
-        <el-menu-item index="Home">
+        <el-menu-item index="home">
             <el-icon><HomeFilled /></el-icon>
             <span>主页</span>
         </el-menu-item>
