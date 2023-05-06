@@ -17,7 +17,10 @@
                             <el-input v-model="loginForm.userName" />
                         </el-form-item>
                         <el-form-item label="密码">
-                            <el-input type="password" v-model="loginForm.password" />
+                            <el-input
+                                type="password"
+                                v-model="loginForm.password"
+                            />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -46,9 +49,9 @@ const login = () => {
             if (res.statusCode === LOGIN_ERR) {
                 ElMessage.error(res.msg);
             } else {
-                localStorage.setItem("token", res.token)
+                localStorage.setItem("token", res.token);
                 ElMessage.success("登录成功");
-                router.push("/home")
+                router.push("/home");
             }
         })
         .catch(() => {
@@ -64,6 +67,8 @@ const login = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("https://ys.mihoyo.com/main/_nuxt/img/47f71d4.jpg");
+    background-size: cover;
 }
 
 .card_header {
@@ -72,7 +77,7 @@ const login = () => {
     align-items: center;
 }
 
-.box_ard{
+.box_ard {
     width: 450px;
     height: 250px;
     display: flex;
