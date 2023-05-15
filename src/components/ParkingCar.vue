@@ -36,6 +36,13 @@
                         }}</span>
                     </template>
                 </el-table-column>
+                <el-table-column prop="out_time" label="出场时间" width="200" v-if="showOut">
+                    <template #default="{ row }">
+                        <span>{{
+                            row.out_time? FormatDate(new Date(row.out_time), "datetime", true) : "车辆暂未离场"
+                        }}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作" width="240">
                     <template #default="{ row }">
                         <el-button
@@ -137,6 +144,7 @@ import {
 import router from "../router";
 
 const parkingCarData = ref<ParkingCarData[]>();
+const showOut = ref<boolean>(false)
 const editParkingCarVisible = ref<boolean>(false);
 const createParkingCarVisible = ref<boolean>(false);
 const editParkingCarFrom = reactive<UpdateParkingCar>({
@@ -165,6 +173,7 @@ const resetSearch = () => {
         in_time: "",
         out_time: "",
     };
+    showOut.value = false;
     getParkingCar();
 };
 
@@ -181,6 +190,7 @@ const searchParkingCar = () => {
                 ElMessage.warning("授权信息过期，请重新登录");
                 router.push("/login");
             } else {
+                showOut.value = true;
                 parkingCarData.value = res.data;
             }
         })
