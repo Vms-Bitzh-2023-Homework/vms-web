@@ -6,7 +6,9 @@ import ParkingCarVue from "../components/ParkingCar.vue";
 import LayoutPage from "../pages/LayoutPage.vue";
 import LoginPageVue from "../pages/LoginPage.vue";
 import VisitorInfoVue from "../components/VisitorInfo.vue";
+import ParkcarInfoVue from "../components/ParkcarInfo.vue";
 import HomeVue from "../components/Home.vue";
+import OrderVue from "../components/Order.vue";
 
 // 配置路由
 const routes: Array<RouteRecordRaw> = [
@@ -44,6 +46,18 @@ const routes: Array<RouteRecordRaw> = [
                 name: "visitorInfo",
                 component: VisitorInfoVue,
                 meta: { title: "车主信息" },
+            },
+            {
+                path: "/parkcarInfo",
+                name: "parkcarInfo",
+                component: ParkcarInfoVue,
+                meta: { title: "车库信息" },
+            },
+            {
+                path: "/order",
+                name: "order",
+                component: OrderVue,
+                meta: { title: "订单信息" },
             },
         ],
     },

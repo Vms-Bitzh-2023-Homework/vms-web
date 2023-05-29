@@ -19,11 +19,21 @@
             <el-icon><Avatar /></el-icon>
             <span>车主信息</span>
         </el-menu-item>
+
+        <el-menu-item index="parkcarInfo">
+            <el-icon><Document /></el-icon>
+            <span>车库信息</span>
+        </el-menu-item>
+        <el-menu-item index="order">
+            <el-icon><Link /></el-icon>
+            <span>订单信息</span>
+        </el-menu-item>
     </el-menu>
+
 </template>
 
 <script setup lang="ts">
-import { HomeFilled, Avatar, Location } from "@element-plus/icons-vue";
+import { HomeFilled, Avatar, Location, Document,Link } from "@element-plus/icons-vue";
 </script>
 
 <style scoped></style>
