@@ -5,9 +5,9 @@ export interface UserInfo {
 }
 
 export interface ChangePwdForm {
-    oldPwd: string,
-    newPwd: string,
-    confirmPwd: string
+    oldPassword: string,
+    newPassword: string,
+    checkPassword: string
 }
 
 export interface AddUserForm {
