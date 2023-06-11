@@ -11,6 +11,7 @@ import HomeVue from "../components/Home.vue";
 import OrderVue from "../components/Order.vue";
 import UserInfoVue from "../components/UserInfo.vue";
 import AddUserVue from "../components/AddUser.vue";
+import InOutRecordVue from "../components/InOutRecord.vue";
 
 // 配置路由
 const routes: Array<RouteRecordRaw> = [
@@ -73,6 +74,12 @@ const routes: Array<RouteRecordRaw> = [
                 name: "addUser",
                 component: AddUserVue,
                 meta: { title: "添加用户" },
+            },
+            {
+                path: "/InOutRecord",
+                name: "InOutRecord",
+                component: InOutRecordVue,
+                meta: { title: "出入场信息" },
             },
         ],
     },

@@ -30,6 +30,11 @@
             <span>订单信息</span>
         </el-menu-item>
 
+        <el-menu-item index="InOutRecord">
+            <el-icon><Clock /></el-icon>
+            <span>出入场信息</span>
+        </el-menu-item>
+
         <el-menu-item index="addUser" v-if="showAddUser">
             <el-icon><CirclePlus /></el-icon>
             <span>添加用户</span>
@@ -51,6 +56,7 @@ import {
     Link,
     Setting,
     CirclePlus,
+    Clock,
 } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import router from "../router";
