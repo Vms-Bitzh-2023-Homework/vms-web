@@ -10,6 +10,7 @@ import ParkcarInfoVue from "../components/ParkcarInfo.vue";
 import HomeVue from "../components/Home.vue";
 import OrderVue from "../components/Order.vue";
 import UserInfoVue from "../components/UserInfo.vue";
+import AddUserVue from "../components/AddUser.vue";
 
 // 配置路由
 const routes: Array<RouteRecordRaw> = [
@@ -26,6 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/layout",
         name: "layout",
+        redirect: "/home",
         component: LayoutPage,
         children: [
             {
@@ -66,6 +68,12 @@ const routes: Array<RouteRecordRaw> = [
                 component: UserInfoVue,
                 meta: { title: "个人中心" },
             },
+            {
+                path: "/addUser",
+                name: "addUser",
+                component: AddUserVue,
+                meta: { title: "添加用户" },
+            },
         ],
     },
 ];
@@ -81,6 +89,15 @@ router.beforeEach((to, from, next) => {
         if (!localStorage.getItem("token")) {
             ElMessage.error("尚未登录，请登录后再试");
             router.replace("/login");
+        }
+    }
+    if (to.path == "/addUser") {
+        const role = JSON.parse(
+            atob(localStorage.getItem("token")?.split(".")[1] as string)
+        ).perms;
+        if (role != "admin") {
+            ElMessage.error("权限不足");
+            router.replace(from.path);
         }
     }
     document.title = to.meta.title as string;
