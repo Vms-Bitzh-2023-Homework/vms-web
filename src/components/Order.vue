@@ -22,11 +22,9 @@
     </div>
     <div class="table_area">
       <el-table :data="OrderData" stripe style="width: 100%">
-        <el-table-column prop="id" label="订单ID" width="160" />
-        <el-table-column prop="phone" label="电话" width="180" />
         <el-table-column prop="carNumber" label="车牌号" width="180" />
         <el-table-column prop="parkingTime" label="时长" width="180" />
-        <el-table-column prop="money" label="价格" width="180" />
+        <el-table-column prop="money" label="价格(￥)" width="180" />
         <el-table-column prop="status" label="状态" width="160" />
         <el-table-column label="操作" width="152">
           <template #default="{ row }">
@@ -61,7 +59,7 @@
         />
       </el-form-item>
       <el-form-item label="费用" :label-width="120">
-        <el-input v-model="editOrderFrom.money" autocomplete="off" />
+        <el-input v-model="editOrderFrom.money" disabled autocomplete="off" />
       </el-form-item>
       <el-form-item label="订单状态" :label-width="120">
         <el-select v-model="editOrderFrom.status">
@@ -95,7 +93,7 @@
         />
       </el-form-item>
       <el-form-item label="费用" :label-width="120">
-        <el-input v-model="createOrderFrom.money" autocomplete="off" />
+        <el-input v-model="createOrderFrom.money" disabled autocomplete="off" />
       </el-form-item>
       <el-form-item label="订单状态" :label-width="120">
         <el-select v-model="createOrderFrom.status">
