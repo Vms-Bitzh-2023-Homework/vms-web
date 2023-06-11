@@ -36,10 +36,21 @@
                         }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="out_time" label="出场时间" width="200" v-if="showOut">
+                <el-table-column
+                    prop="out_time"
+                    label="出场时间"
+                    width="200"
+                    v-if="showOut"
+                >
                     <template #default="{ row }">
                         <span>{{
-                            row.out_time? FormatDate(new Date(row.out_time), "datetime", true) : "车辆暂未离场"
+                            row.out_time
+                                ? FormatDate(
+                                      new Date(row.out_time),
+                                      "datetime",
+                                      true
+                                  )
+                                : "车辆暂未离场"
                         }}</span>
                     </template>
                 </el-table-column>
@@ -144,7 +155,7 @@ import {
 import router from "../router";
 
 const parkingCarData = ref<ParkingCarData[]>();
-const showOut = ref<boolean>(false)
+const showOut = ref<boolean>(false);
 const editParkingCarVisible = ref<boolean>(false);
 const createParkingCarVisible = ref<boolean>(false);
 const editParkingCarFrom = reactive<UpdateParkingCar>({
@@ -233,6 +244,7 @@ const confirmEditParkingCar = () => {
 
 // 显示添加对话框
 const showCreateParkingCarModel = () => {
+    createParkingCarFrom.carNo = "";
     createParkingCarFrom.in_time = FormatDate(new Date(), "datetime", true);
     createParkingCarVisible.value = true;
 };
