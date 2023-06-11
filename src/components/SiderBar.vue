@@ -2,7 +2,7 @@
     <el-menu
         default-active="home"
         class="el-menu-vertical-demo"
-        router
+        @select="handleselect"
         :style="{ height: 'calc(100vh - 120px)' }"
     >
         <el-menu-item index="home">
@@ -34,6 +34,12 @@
 
 <script setup lang="ts">
 import { HomeFilled, Avatar, Location, Document,Link } from "@element-plus/icons-vue";
+import router from "../router";
+
+
+const handleselect = (key: string) => {
+    router.push(`/${key}`)
+}
 </script>
 
 <style scoped></style>
