@@ -16,7 +16,7 @@
                         <router-view></router-view>
                     </el-main>
                 </el-container>
-                <el-footer>Copyright © 2023 Design By Julien and lzh. 保留所有权利。</el-footer>
+                <el-footer>Copyright © 2023 Design By Julien, lzh, wwj, zyp and zjh.</el-footer>
             </el-container>
         </el-container>
     </div>
