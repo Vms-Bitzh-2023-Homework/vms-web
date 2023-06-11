@@ -65,6 +65,9 @@
 import { FormInstance, FormRules } from "element-plus";
 import { ref, reactive } from "vue";
 import { AddUserForm } from "../types/UserInfo";
+import http from "../axios/http";
+import { LOGIN_ERR, SAVE_ERR } from "../types/RespondCode";
+import router from "../router";
 
 const addUserFormRef = ref<FormInstance>();
 const addUserForm = reactive<AddUserForm>({
@@ -121,7 +124,25 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     await formEl.validate((valid: any, fields: any) => {
         if (valid) {
-            console.log("submit!");
+            http.post("/user/addUser", addUserForm)
+                .then((res: any) => {
+                    if (res.statusCode === LOGIN_ERR) {
+                        ElMessage.warning("授权信息过期，请重新登录");
+                        router.push("/login");
+                    } else if (res.statusCode === SAVE_ERR) {
+                        ElMessage.error("添加失败");
+                    } else {
+                        ElMessage.success("添加成功！");
+                        addUserForm.adPhone = "",
+                        addUserForm.confirmPwd = "",
+                        addUserForm.password = "",
+                        addUserForm.perms = "",
+                        addUserForm.userName = ""
+                    }
+                })
+                .catch((_err) => {
+                    ElMessage.error("添加失败");
+                });
         } else {
             console.log("error submit!", fields);
         }
