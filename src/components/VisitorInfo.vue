@@ -110,7 +110,7 @@
         </el-form>
         <template #footer>
             <span class="dialog-footer">
-                <el-button @click="createVisitorInfoVisible = false"
+                <el-button @click="cancalCreateVisitorInfo"
                     >取消</el-button
                 >
                 <el-button type="primary" @click="confirmCreateVisitorInfo">
@@ -200,6 +200,13 @@ const showEditVisitorInfoModel = (visitorInfo: UpdateVisitorInfo) => {
     editVisitorInfoVisible.value = true;
 };
 
+const cancalCreateVisitorInfo = () => {
+    createVisitorInfoFrom.carNo = ""
+    createVisitorInfoFrom.visName = ""
+    createVisitorInfoFrom.visPhone = ""
+    createVisitorInfoVisible.value = false
+}
+
 // 确认修改
 const confirmEditVisitorInfo = () => {
     http.put("/visitorInfo", editVisitorInfoFrom)
@@ -221,7 +228,6 @@ const confirmEditVisitorInfo = () => {
 
 // 确认添加
 const confirmCreateVisitorInfo = () => {
-    console.log(createVisitorInfoFrom);
     http.post("/visitorInfo", createVisitorInfoFrom)
         .then((res: any) => {
             if (res.statusCode === SAVE_ERR) {
