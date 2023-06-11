@@ -9,3 +9,10 @@ export interface ChangePwdForm {
     newPwd: string,
     confirmPwd: string
 }
+
+export interface AddUserForm {
+    userName: string,
+    password: string,
+    adPhone: string,
+    perms: string
+}
