@@ -30,8 +30,16 @@
         <div class="table_area">
             <el-table :data="OrderData" stripe style="width: 100%">
                 <el-table-column prop="carNumber" label="车牌号" width="180" />
-                <el-table-column prop="parkingTime" label="时长" width="180" />
-                <el-table-column prop="money" label="价格(￥)" width="180" />
+                <el-table-column prop="parkingTime" label="时长" width="180">
+                    <template #default="{ row }">
+                        <span>{{ formatTimeLong(row.parkingTime) }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="money" label="价格(￥)" width="180">
+                    <template #default="{ row }">
+                        <span>{{ row.money? row.money: "--" }}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="status" label="状态" width="160" />
                 <el-table-column label="操作" width="152">
                     <template #default="{ row }">
@@ -140,7 +148,7 @@ import {
     LOGIN_ERR,
     GET_ERR,
     DELETE_ERR,
-    UPDATE_ERR
+    UPDATE_ERR,
 } from "../types/RespondCode";
 import http from "../axios/http";
 import {
@@ -150,6 +158,7 @@ import {
     OrderData,
 } from "../types/Order";
 import router from "../router";
+import TimestampToString from "../common/TimestampToString";
 
 const OrderData = ref<OrderData[]>();
 const editOrderVisible = ref<boolean>(false);
@@ -311,6 +320,22 @@ const deleteOrder = (id: number) => {
                 message: "取消",
             });
         });
+};
+
+const formatTimeLong = (timestamp: number): string => {
+    if (timestamp == null) {
+        return "未出场";
+    }
+    const result = TimestampToString(timestamp);
+    console.log(result);
+    return (
+        `${result.years != 0 ? result.years + "年" : ""}` +
+        `${result.months != 0 ? result.months + "月" : ""}` +
+        `${result.days != 0 ? result.days + "天" : ""}` +
+        `${result.hours != 0 ? result.hours + "小时" : ""}` +
+        `${result.minutes != 0 ? result.minutes + "分" : ""}` +
+        `${result.seconds != 0 ? result.seconds + "秒" : ""}`
+    );
 };
 
 // 获取在停车辆信息
