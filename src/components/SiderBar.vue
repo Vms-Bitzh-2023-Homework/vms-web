@@ -30,22 +30,51 @@
             <span>订单信息</span>
         </el-menu-item>
 
+        <el-menu-item index="addUser" v-if="showAddUser">
+            <el-icon><CirclePlus /></el-icon>
+            <span>添加用户</span>
+        </el-menu-item>
+
         <el-menu-item index="userInfo">
             <el-icon><Setting /></el-icon>
             <span>个人中心</span>
         </el-menu-item>
     </el-menu>
-
 </template>
 
 <script setup lang="ts">
-import { HomeFilled, Avatar, Location, Document,Link, Setting } from "@element-plus/icons-vue";
+import {
+    HomeFilled,
+    Avatar,
+    Location,
+    Document,
+    Link,
+    Setting,
+    CirclePlus,
+} from "@element-plus/icons-vue";
+import { ref } from "vue";
 import router from "../router";
 import { useRoute } from "vue-router";
 
+const loginRole = ref<string>();
+const showAddUser = ref<boolean>(false);
+
 const handleselect = (key: string) => {
-    router.push(`/${key}`)
-}
+    router.push(`/${key}`);
+};
+
+const confirmRole = () => {
+    loginRole.value = JSON.parse(
+        atob(localStorage.getItem("token")?.split(".")[1] as string)
+    ).perms;
+
+    if (loginRole.value === "admin") {
+        showAddUser.value = true;
+    } else {
+        showAddUser.value = false;
+    }
+};
+confirmRole();
 </script>
 
 <style scoped></style>
