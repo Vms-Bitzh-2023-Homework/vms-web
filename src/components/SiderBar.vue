@@ -24,16 +24,22 @@
             <el-icon><Document /></el-icon>
             <span>车库信息</span>
         </el-menu-item>
+
         <el-menu-item index="order">
             <el-icon><Link /></el-icon>
             <span>订单信息</span>
+        </el-menu-item>
+
+        <el-menu-item index="userInfo">
+            <el-icon><Setting /></el-icon>
+            <span>个人中心</span>
         </el-menu-item>
     </el-menu>
 
 </template>
 
 <script setup lang="ts">
-import { HomeFilled, Avatar, Location, Document,Link } from "@element-plus/icons-vue";
+import { HomeFilled, Avatar, Location, Document,Link, Setting } from "@element-plus/icons-vue";
 import router from "../router";
 import { useRoute } from "vue-router";
 

@@ -9,6 +9,7 @@ import VisitorInfoVue from "../components/VisitorInfo.vue";
 import ParkcarInfoVue from "../components/ParkcarInfo.vue";
 import HomeVue from "../components/Home.vue";
 import OrderVue from "../components/Order.vue";
+import UserInfoVue from "../components/UserInfo.vue";
 
 // 配置路由
 const routes: Array<RouteRecordRaw> = [
@@ -58,6 +59,12 @@ const routes: Array<RouteRecordRaw> = [
                 name: "order",
                 component: OrderVue,
                 meta: { title: "订单信息" },
+            },
+            {
+                path: "/userInfo",
+                name: "userInfo",
+                component: UserInfoVue,
+                meta: { title: "个人中心" },
             },
         ],
     },
