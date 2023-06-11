@@ -14,5 +14,6 @@ export interface AddUserForm {
     userName: string,
     password: string,
     adPhone: string,
-    perms: string
+    perms: string,
+    confirmPwd: string
 }
