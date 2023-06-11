@@ -18,27 +18,27 @@
                 label-width="150px"
                 status-icon
             >
-                <el-form-item label="请输入旧密码" prop="oldPwd">
+                <el-form-item label="请输入旧密码" prop="oldPassword">
                     <el-input
                         type="password"
                         show-password
-                        v-model="changePwdForm.oldPwd"
+                        v-model="changePwdForm.oldPassword"
                     />
                 </el-form-item>
 
-                <el-form-item label="请输入新密码" prop="newPwd">
+                <el-form-item label="请输入新密码" prop="newPassword">
                     <el-input
                         type="password"
                         show-password
-                        v-model="changePwdForm.newPwd"
+                        v-model="changePwdForm.newPassword"
                     />
                 </el-form-item>
 
-                <el-form-item label="请再次输入新密码" prop="confirmPwd">
+                <el-form-item label="请再次输入新密码" prop="checkPassword">
                     <el-input
                         type="password"
                         show-password
-                        v-model="changePwdForm.confirmPwd"
+                        v-model="changePwdForm.checkPassword"
                     />
                 </el-form-item>
 
@@ -64,6 +64,9 @@
 import { reactive, ref } from "vue";
 import { UserInfo, ChangePwdForm } from "../types/UserInfo";
 import type { FormInstance, FormRules } from "element-plus";
+import http from "../axios/http";
+import router from "../router";
+import { LOGIN_ERR, SAVE_ERR } from "../types/RespondCode";
 
 const userInfo = ref<UserInfo>({
     userName: "",
@@ -72,14 +75,14 @@ const userInfo = ref<UserInfo>({
 });
 const changePwdFormRef = ref<FormInstance>();
 const changePwdForm = reactive<ChangePwdForm>({
-    oldPwd: "",
-    newPwd: "",
-    confirmPwd: "",
+    oldPassword: "",
+    newPassword: "",
+    checkPassword: "",
 });
 const checkConfirmPwd = (_rule: any, value: any, callback: any) => {
     if (value === "") {
         callback(new Error("请再次输入新密码。"));
-    } else if (value !== changePwdForm.newPwd) {
+    } else if (value !== changePwdForm.newPassword) {
         callback(new Error("两次输入的密码不一致。"));
     } else {
         callback();
@@ -87,9 +90,9 @@ const checkConfirmPwd = (_rule: any, value: any, callback: any) => {
 };
 
 const rules = reactive<FormRules>({
-    oldPwd: [{ required: true, message: "请输入旧密码。", trigger: "blur" }],
-    newPwd: [{ required: true, message: "请输入新密码。", trigger: "blur" }],
-    confirmPwd: [
+    oldPassword: [{ required: true, message: "请输入旧密码。", trigger: "blur" }],
+    newPassword: [{ required: true, message: "请输入新密码。", trigger: "blur" }],
+    checkPassword: [
         { required: true, message: "请再次输入新密码。", trigger: "blur" },
         { validator: checkConfirmPwd, trigger: "blur" },
     ],
@@ -112,7 +115,20 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     await formEl.validate((valid: any, fields: any) => {
         if (valid) {
-            console.log("submit!");
+            http.put("/user/modifyPassword",changePwdForm).then((res: any) => {
+                if (res.statusCode === LOGIN_ERR) {
+                        ElMessage.warning("授权信息过期，请重新登录");
+                        router.push("/login");
+                    } else if (res.statusCode === SAVE_ERR) {
+                        ElMessage.error(res.msg);
+                    } else {
+                        ElMessage.success("修改成功,请重新登录。");
+                        localStorage.removeItem("token")
+                        router.push("/login")
+                    }
+            }).catch((_err) => {
+                ElMessage.error("修改失败，请稍后再试。")
+            })
         } else {
             console.log("error submit!", fields);
         }
